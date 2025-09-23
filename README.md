@@ -52,7 +52,7 @@ Permite a los usuarios **visualizar, añadir, editar y eliminar productos** a tr
 flowchart LR
     User((Usuario)) -->|Navegador| Frontend[Frontend Angular]
     Frontend -->|HTTP REST| Backend[NestJS API]
-    Backend --> DB[(Base de Datos / In-memory Store)]
+    Backend --> DB["Base de Datos / In-memory Store"]
 
 ## Instalación y Ejecución
 git clone https://github.com/reaperjason/TCS-challenge.git
