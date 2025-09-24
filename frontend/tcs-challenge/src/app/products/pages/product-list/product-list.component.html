@@ -5,56 +5,44 @@
     <button class="button button--primary button--auto-width" (click)="goToNewProduct()">Agregar</button>
   </div>
 
-  <div *ngIf="!isLoading; else loadingSkeleton">
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th class="data-table__header data-table__header--logo">Logo</th>
-          <th class="data-table__header">Nombre del producto</th>
-          <th class="data-table__header">Descripción</th>
-          <th class="data-table__header">Fecha de liberación</th>
-          <th class="data-table__header">Fecha de reestructuración</th>
-          <th class="data-table__header"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of displayedProducts">
-          <td class="data-table__cell data-table__cell--logo"><img [src]="product.logo" alt="Logo" class="product__logo"></td>
-          <td class="data-table__cell">{{ product.name }}</td>
-          <td class="data-table__cell">{{ product.description }}</td>
-          <td class="data-table__cell">{{ product.date_release | date:'dd/MM/yyyy':'UTC' }}</td>
-          <td class="data-table__cell">{{ product.date_revision | date:'dd/MM/yyyy':'UTC' }}</td>
-          <td class="data-table__cell">
-            <app-options-menu [options]="options" (optionSelected)="onOptionSelected($event, product)">
-            </app-options-menu>
-          </td>
-        </tr>
-        <tr *ngIf="displayedProducts.length === 0">
-          <td colspan="7" class="data-table__cell data-table__cell--empty">No se encontraron productos.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th class="data-table__header data-table__header--logo">Logo</th>
+        <th class="data-table__header">Nombre del producto</th>
+        <th class="data-table__header">Descripción</th>
+        <th class="data-table__header">Fecha de liberación</th>
+        <th class="data-table__header">Fecha de reestructuración</th>
+        <th class="data-table__header"></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!isLoading; else loadingSkeleton">
+      <tr *ngFor="let product of displayedProducts">
+        <td class="data-table__cell data-table__cell--logo"><img [src]="product.logo" alt="Logo" class="product__logo">
+        </td>
+        <td class="data-table__cell">{{ product.name }}</td>
+        <td class="data-table__cell">{{ product.description }}</td>
+        <td class="data-table__cell">{{ product.date_release | date:'dd/MM/yyyy':'UTC' }}</td>
+        <td class="data-table__cell">{{ product.date_revision | date:'dd/MM/yyyy':'UTC' }}</td>
+        <td class="data-table__cell">
+          <app-options-menu [options]="options" (optionSelected)="onOptionSelected($event, product)">
+          </app-options-menu>
+        </td>
+      </tr>
+      <tr *ngIf="displayedProducts.length === 0">
+        <td colspan="7" class="data-table__cell data-table__cell--empty">No se encontraron productos.</td>
+      </tr>
+    </tbody>
+  </table>
 
   <ng-template #loadingSkeleton>
-    <div class="skeleton">
-      <div class="data-table">
-        <table>
-          <thead>
-            <tr>
-              <th></th><th></th><th></th><th></th><th></th><th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let i of [1, 2, 3, 4, 5]">
-              <td *ngFor="let j of [1, 2, 3, 4, 5, 6]">
-                <div class="skeleton-placeholder"></div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <tbody>
+      <tr *ngFor="let row of [1, 2, 3, 4, 5]">
+        <td *ngFor="let col of [1, 2, 3, 4, 5]" class="data-table__cell data-table__cell--skeleton">
+          <div class="skeleton-placeholder"></div>
+        </td>
+      </tr>
+    </tbody>
   </ng-template>
 
   <div class="product-list__footer">

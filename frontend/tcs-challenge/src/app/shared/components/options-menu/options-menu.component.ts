@@ -23,15 +23,6 @@ export class OptionsMenuComponent {
   toggleMenu(event: MouseEvent) {
     event.stopPropagation(); // Evita que el clic se propague
     this.isOpen = !this.isOpen;
-
-    if (this.isOpen) {
-      const buttonRect = this.menuButton.nativeElement.getBoundingClientRect();
-
-      // this.menuStyles = {
-      //   top: `${buttonRect.bottom + window.scrollY}px`,
-      //   left: `${buttonRect.left + window.scrollX}px`
-      // };
-    }
   }
 
   onSelect(option: { label: string, value: string }) {
