@@ -64,21 +64,27 @@ export class ProductService {
   }
 
   // Manejo centralizado de errores
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
-      // Error del cliente o red
+      // Error del cliente
       errorMessage = `Client-side error: ${error.error.message}`;
     } else {
       // Error del backend
-      errorMessage = `Backend returned code ${error.status}, body: ${JSON.stringify(error.error)}`;
+      if (error.status === 404) {
+        errorMessage = `Resource not found: ${error.url}`;
+      } else {
+        errorMessage = `Backend returned code ${error.status}, body: ${JSON.stringify(error.error)}`;
+      }
     }
     console.error(errorMessage);
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    return throwError(() => new Error(errorMessage));
   }
 
-  //Manje de logs en desarrollo
-  const logDebug = <T>(message: string) => tap<T>(data => {
-    if (!environment.production) console.log(message, data);
-  });
+  //Manejo de logs en desarrollo
+  private logDebug<T>(message: string) {
+    return tap<T>(data => {
+      if (!environment.production) console.log(message, data);
+    });
+  }
 }
