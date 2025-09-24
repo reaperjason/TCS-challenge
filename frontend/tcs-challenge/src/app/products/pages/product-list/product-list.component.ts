@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../../core/services/product.service';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../core/services/modal.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   products: Product[] = [];
   filteredProducts: Product[] = [];
   displayedProducts: Product[] = [];
@@ -31,17 +33,21 @@ export class ProductListComponent implements OnInit {
 
   loadProducts(): void {
     this.isLoading = true;
-    this.productService.getProducts().subscribe({
-      next: (data) => {
-        this.products = data;
-        this.applyFilterAndPagination();
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.modalService.handleBackendError();
-        this.isLoading = false;
-      }
-    });
+    this.productService.getProducts()
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (data) => {
+          this.products = data;
+          this.applyFilterAndPagination();
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.modalService.handleBackendError();
+          this.isLoading = false;
+        }
+      });
   }
 
   applyFilterAndPagination(): void {
@@ -63,12 +69,16 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(productId: string): void {
-    this.productService.deleteProduct(productId).subscribe({
-      next: () => this.loadProducts(),
-      error: (err) => {
-        this.modalService.handleBackendError();
-      }
-    });
+    this.productService.deleteProduct(productId)
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: () => this.loadProducts(),
+        error: (err) => {
+          this.modalService.handleBackendError();
+        }
+      });
   }
 
   openDeleteModal(product: Product): void {
@@ -87,5 +97,10 @@ export class ProductListComponent implements OnInit {
     } else if (option === 'delete') {
       this.openDeleteModal(product);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

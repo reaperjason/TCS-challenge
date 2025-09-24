@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, debounceTime, distinctUntilChanged, filter, map, Observable, of, startWith, switchMap, take } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, Observable, of, startWith, Subject, switchMap, take, takeUntil } from 'rxjs';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../models/product.model';
 import { dateReleaseValidator, dateRevisionValidator } from '../../../core/validators/date.validators';
@@ -12,7 +12,8 @@ import { ModalService } from '../../../core/services/modal.service';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   productForm!: FormGroup;
   isEditMode = false;
   productId: string | null = null;
@@ -187,19 +188,27 @@ export class ProductFormComponent implements OnInit {
       };
 
       if (this.isEditMode) {
-        this.productService.updateProduct(this.productId!, product).subscribe({
-          next: () => this.router.navigate(['/products']),
-          error: (err) => {
-            this.modalService.handleBackendError();
-          }
-        });
+        this.productService.updateProduct(this.productId!, product)
+          .pipe(
+            takeUntil(this.destroy$)
+          )
+          .subscribe({
+            next: () => this.router.navigate(['/products']),
+            error: (err) => {
+              this.modalService.handleBackendError();
+            }
+          });
       } else {
-        this.productService.createProduct(product).subscribe({
-          next: () => this.router.navigate(['/products']),
-          error: (err) => {
-            this.modalService.handleBackendError();
-          }
-        });
+        this.productService.createProduct(product)
+          .pipe(
+            takeUntil(this.destroy$)
+          )
+          .subscribe({
+            next: () => this.router.navigate(['/products']),
+            error: (err) => {
+              this.modalService.handleBackendError();
+            }
+          });
       }
     }
   }
@@ -241,6 +250,11 @@ export class ProductFormComponent implements OnInit {
     }
 
     return [year, month, day].join('-');
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   get id() {
