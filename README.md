@@ -69,7 +69,7 @@ cd ../frontend
 npm install
 ng serve
 La aplicación se ejecutará en `http://localhost:4200`.
-####NOTA: en caso de error al ejecutar npm install, agregar la flag: --legacy-peer-deps
+#### NOTA: en caso de error al ejecutar npm install, agregar la flag: --legacy-peer-deps
 
 ###🧪 Ejecución de Pruebas
 npm test
