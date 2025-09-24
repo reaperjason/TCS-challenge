@@ -22,8 +22,8 @@
           <td class="data-table__cell data-table__cell--logo"><img [src]="product.logo" alt="Logo" class="product__logo"></td>
           <td class="data-table__cell">{{ product.name }}</td>
           <td class="data-table__cell">{{ product.description }}</td>
-          <td class="data-table__cell">{{ product.date_release | date:'shortDate' }}</td>
-          <td class="data-table__cell">{{ product.date_revision | date:'shortDate' }}</td>
+          <td class="data-table__cell">{{ product.date_release | date:'dd/MM/yyyy':'UTC' }}</td>
+          <td class="data-table__cell">{{ product.date_revision | date:'dd/MM/yyyy':'UTC' }}</td>
           <td class="data-table__cell">
             <app-options-menu [options]="options" (optionSelected)="onOptionSelected($event, product)">
             </app-options-menu>
