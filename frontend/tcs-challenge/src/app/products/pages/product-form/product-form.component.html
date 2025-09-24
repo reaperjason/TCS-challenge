@@ -64,6 +64,7 @@
     <div class="product-form__actions">
       <button type="button" class="button button--secondary button--auto-width" (click)="onReset()">Reiniciar</button>
       <button type="submit" class="button button--primary button--auto-width"
+        [class.button--disabled]="productForm.invalid || productForm.pending"
         [disabled]="productForm.invalid || productForm.pending">Enviar</button>
     </div>
   </form>

@@ -85,6 +85,12 @@ button {
   background-color: #ffde1f;
 }
 
+.button--disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* ------------------------------------------------------------- */
 /* BEM SEARCH COMPONENT */
 /* ------------------------------------------------------------- */
