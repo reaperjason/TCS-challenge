@@ -11,6 +11,10 @@
 .options-container {
   position: relative;
   display: inline-block;
+
+  button {
+    border-width: 0px;
+  }
 }
 
 .menu {
