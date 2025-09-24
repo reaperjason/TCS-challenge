@@ -20,8 +20,8 @@ Permite a los usuarios **visualizar, añadir, editar y eliminar productos** a tr
 ## 🛠️ Tecnologías Utilizadas
 
 ### Frontend
-- **Angular**: `v20.3.2`
-  - **Angular CLI**: `v20.3.2`
+- **Angular**: `v18.2.14`
+  - **Angular CLI**: `v18.2.21`
 - **Node.js**: `v22.12.0`
 - **npm**: `v10.9.0`
 - **RxJS**: Manejo de datos asíncronos y flujos reactivos.
@@ -73,6 +73,14 @@ La aplicación se ejecutará en `http://localhost:4200`.
 ###🧪 Ejecución de Pruebas
 npm test
 npm run test:coverage
+
+
+## ✅ Integración Continua (CI)
+
+Este proyecto utiliza **GitHub Actions** para ejecutar pruebas de forma automática en cada **push** y **pull request**.  
+El workflow corre los **tests unitarios** y genera el reporte de cobertura.
+
+![CI](https://github.com/reaperjason/TCS-challenge/actions/workflows/ci.yml/badge.svg)
 
 
 ##👤 Autor
