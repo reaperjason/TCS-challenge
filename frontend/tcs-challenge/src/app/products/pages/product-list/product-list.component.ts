@@ -34,6 +34,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data) => {
         this.products = data;
+        this.products.push(...data); // Duplicar los productos para simular más datos
         this.applyFilterAndPagination();
         this.isLoading = false;
       },

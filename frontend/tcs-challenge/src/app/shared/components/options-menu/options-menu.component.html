@@ -6,9 +6,9 @@
         d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
     </svg>
   </button>
-  <ul #menuList class="menu-list" [ngClass]="{show: isOpen}" [ngStyle]="menuStyles">
-    <li *ngFor="let option of options">
-      <button (click)="onSelect(option)">{{option.label}}</button>
+  <ul #menuList class="menu" [ngClass]="{show: isOpen}" [ngStyle]="menuStyles">
+    <li *ngFor="let option of options" class="menu__item">
+      <button class="menu__button" (click)="onSelect(option)">{{option.label}}</button>
     </li>
   </ul>
 </div>

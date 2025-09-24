@@ -14,7 +14,6 @@
 }
 
 .menu {
-  /* Propiedades de un bloque independiente */
   background-color: white;
   border: 1px solid var(--border-color);
   border-radius: 4px;
@@ -23,22 +22,20 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  position: absolute; /* Relativo al .options-container */
+  position: absolute;
   z-index: 1000;
-  /* Posicionamiento: se podría mejorar con CSS variables */
+  display: none;
 }
 
-.menu.show {
+.options-container .menu.show {
   display: block;
 }
 
 .menu__item {
-  /* Propiedades de un elemento del bloque menu */
   list-style: none;
 }
 
 .menu__button {
-  /* Propiedades de un botón genérico */
   width: 100%;
   padding: 0.5rem 1rem;
   text-align: left;

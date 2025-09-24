@@ -27,10 +27,10 @@ export class OptionsMenuComponent {
     if (this.isOpen) {
       const buttonRect = this.menuButton.nativeElement.getBoundingClientRect();
 
-      this.menuStyles = {
-        top: `${buttonRect.bottom + window.scrollY}px`,
-        left: `${buttonRect.left + window.scrollX}px`
-      };
+      // this.menuStyles = {
+      //   top: `${buttonRect.bottom + window.scrollY}px`,
+      //   left: `${buttonRect.left + window.scrollX}px`
+      // };
     }
   }
 
