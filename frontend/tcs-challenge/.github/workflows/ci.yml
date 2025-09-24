@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests & Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clonar el repositorio
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2. Instalar Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # 3. Instalar dependencias
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Correr tests con Jest y generar coverage
+      - name: Run tests
+        run: npm test -- --coverage
+
+      # 5. Subir reportes de coverage como artefacto (opcional)
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage
