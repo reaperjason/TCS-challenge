@@ -1,12 +1,13 @@
 name: CI
 
+# Ejecuta el workflow en cada push o pull request a cualquier rama
 on:
   push:
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
-      - main
+      - '**'
 
 jobs:
   test:
@@ -14,27 +15,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Clonar el repositorio
-      - name: Checkout repo
+      # Clona el repositorio
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Instalar Node.js
+      # Configura Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
 
-      # 3. Instalar dependencias
+      # Instala dependencias
       - name: Install dependencies
         run: npm ci
+        working-directory: frontend/tcs-challenge
 
-      # 4. Correr tests con Jest y generar coverage
+      # Corre tests con coverage
       - name: Run tests
-        run: npm test -- --coverage
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+        working-directory: frontend/tcs-challenge
 
-      # 5. Subir reportes de coverage como artefacto (opcional)
+      # Publica resultados de coverage (opcional, si usas cobertura en archivos)
       - name: Upload coverage report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: coverage
+          path: frontend/tcs-challenge/coverage
