@@ -18,6 +18,12 @@ import { ProductsFormSkeletonComponent } from './components/products-form-skelet
   ],
   imports: [
     CommonModule
+  ],
+    exports: [
+    HeaderComponent,
+    OptionsMenuComponent,
+    ConfirmationModalComponent,
+    ErrorModalComponent
   ]
 })
 export class SharedModule { }

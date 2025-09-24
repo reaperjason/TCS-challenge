@@ -1,1 +1,13 @@
-<p>confirmation-modal works!</p>
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal">
+    <div class="modal__content">
+      <div class="modal__body">
+        <p>¿Estás seguro de eliminar el producto <em>{{ productName }}</em>?</p>
+      </div>
+      <div class="modal__footer">
+        <button class="button button--secondary" (click)="closeModal()">Cancelar</button>
+        <button class="button button--primary" (click)="confirmDelete()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
