@@ -1,1 +1,15 @@
-<p>error-modal works!</p>
+<div class="modal-backdrop">
+  <div class="modal modal--error">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h3 class="modal__title">¡Hay problemas procesando la petición!</h3>
+      </div>
+      <div class="modal__body">
+        <p>Ocurrió un error inesperado al procesar tu solicitud. Por favor, intenta nuevamente más tarde.</p>
+      </div>
+      <div class="modal__footer">
+        <button class="button button--primary" (click)="onUnderstood()">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>

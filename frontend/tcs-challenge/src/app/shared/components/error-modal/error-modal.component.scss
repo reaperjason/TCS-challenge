@@ -1,0 +1,19 @@
+.modal--error .modal__header {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.modal--error .modal__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.modal--error .modal__body {
+  text-align: center;
+}
+
+.modal--error .modal__footer {
+  margin-top: 24px;
+}

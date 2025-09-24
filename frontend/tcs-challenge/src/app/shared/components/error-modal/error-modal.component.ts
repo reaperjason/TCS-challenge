@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-error-modal',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './error-modal.component.scss'
 })
 export class ErrorModalComponent {
+
+  @Output() understood = new EventEmitter<void>();
+
+  onUnderstood(): void {
+    this.understood.emit();
+  }
 
 }
