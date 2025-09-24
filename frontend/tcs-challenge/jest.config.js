@@ -6,5 +6,12 @@ module.exports = {
     "^src/environments/environment$": "<rootDir>/src/environments/environment.ts"
   },
   maxWorkers: 1,
-  collectCoverage: true
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['html', 'text', 'lcov'],
+  collectCoverageFrom: [
+    'src/app/**/*.ts',
+    '!src/app/**/*.module.ts',
+    '!src/app/**/*.routing.ts'
+  ]
 };
