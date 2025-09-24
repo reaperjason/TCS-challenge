@@ -4,7 +4,6 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
 import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 import { HeaderComponent } from './components/header/header.component';
 import { OptionsMenuComponent } from './components/options-menu/options-menu.component';
-import { ProductsFormSkeletonComponent } from './components/products-form-skeleton/products-form-skeleton.component';
 
 
 
@@ -14,7 +13,6 @@ import { ProductsFormSkeletonComponent } from './components/products-form-skelet
     ErrorModalComponent,
     HeaderComponent,
     OptionsMenuComponent,
-    ProductsFormSkeletonComponent
   ],
   imports: [
     CommonModule

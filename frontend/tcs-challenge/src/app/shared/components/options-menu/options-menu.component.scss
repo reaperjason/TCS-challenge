@@ -1,0 +1,52 @@
+:host {
+  --primary-color: #ffde1f;
+  --secondary-color: #e0e0e0;
+  --font-color: #12295e;
+  --text-primary: #333;
+  --border-color: #ccc;
+  --background-color: #f5f5f5;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+}
+
+.options-container {
+  position: relative;
+  display: inline-block;
+}
+
+.menu {
+  /* Propiedades de un bloque independiente */
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  min-width: 120px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: absolute; /* Relativo al .options-container */
+  z-index: 1000;
+  /* Posicionamiento: se podría mejorar con CSS variables */
+}
+
+.menu.show {
+  display: block;
+}
+
+.menu__item {
+  /* Propiedades de un elemento del bloque menu */
+  list-style: none;
+}
+
+.menu__button {
+  /* Propiedades de un botón genérico */
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu__button:hover {
+  background-color: var(--secondary-color);
+}
