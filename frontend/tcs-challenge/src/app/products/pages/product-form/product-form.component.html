@@ -1,1 +1,70 @@
-<p>product-form works!</p>
+<div class="product-form-container">
+  <h1 class="product-form-container__title">Formulario de Registro</h1>
+  <form class="product-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="product-form__fields">
+      <div class="product-form__column">
+        <div class="form-group">
+          <label for="id" class="form-group__label">ID</label>
+          <input id="id" type="text" formControlName="id" class="form-group__input"
+            [class.is-invalid]="isInvalid('id')">
+          <div *ngIf="isInvalid('id')" class="form-group__feedback">
+            {{ getErrorMessage('id') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-group__label">Descripción</label>
+          <input id="description" type="text" formControlName="description" class="form-group__input"
+            [class.is-invalid]="isInvalid('description')">
+          <div *ngIf="isInvalid('description')" class="form-group__feedback">
+            {{ getErrorMessage('description') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="date_release" class="form-group__label">Fecha de Liberación</label>
+          <input id="date_release" type="date" formControlName="date_release" class="form-group__input"
+            [class.is-invalid]="isInvalid('date_release')">
+          <div *ngIf="isInvalid('date_release')" class="form-group__feedback">
+            {{ getErrorMessage('date_release') }}
+          </div>
+        </div>
+      </div>
+
+      <div class="product-form__column">
+        <div class="form-group">
+          <label for="name" class="form-group__label">Nombre</label>
+          <input id="name" type="text" formControlName="name" class="form-group__input"
+            [class.is-invalid]="isInvalid('name')">
+          <div *ngIf="isInvalid('name')" class="form-group__feedback">
+            {{ getErrorMessage('name') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="logo" class="form-group__label">Logo</label>
+          <input id="logo" type="url" formControlName="logo" class="form-group__input"
+            [class.is-invalid]="isInvalid('logo')">
+          <div *ngIf="isInvalid('logo')" class="form-group__feedback">
+            {{ getErrorMessage('logo') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="date_revision" class="form-group__label">Fecha de Revisión</label>
+          <input id="date_revision" type="date" formControlName="date_revision" class="form-group__input"
+            [class.is-invalid]="isInvalid('date_revision')">
+          <div *ngIf="isInvalid('date_revision')" class="form-group__feedback">
+            {{ getErrorMessage('date_revision') }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-form__actions">
+      <button type="button" class="button button--secondary button--auto-width" (click)="onReset()">Reiniciar</button>
+      <button type="submit" class="button button--primary button--auto-width"
+        [disabled]="productForm.invalid || productForm.pending">Enviar</button>
+    </div>
+  </form>
+</div>

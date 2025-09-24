@@ -1,0 +1,71 @@
+/* ------------------------------------------------------------- */
+/* PRODUCT FORM BLOCK */
+/* ------------------------------------------------------------- */
+
+.product-form-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.product-form-container__title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.product-form {
+  /* No se necesitan estilos aquí si el form es solo un contenedor */
+}
+
+.product-form__fields {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.product-form__column {
+  flex: 1;
+}
+
+.product-form__actions {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  margin-top: 2rem;
+}
+
+/* ------------------------------------------------------------- */
+/* FORM GROUP COMPONENT */
+/* ------------------------------------------------------------- */
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group__input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group__input.is-invalid {
+  border-color: #dc3545;
+}
+
+.form-group__feedback {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
