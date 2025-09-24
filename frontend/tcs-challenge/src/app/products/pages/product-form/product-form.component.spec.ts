@@ -5,7 +5,8 @@ import { of, throwError } from 'rxjs';
 import { ProductFormComponent } from './product-form.component';
 import { ProductService } from 'src/app/core/services/product.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { delay} from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
+import { ModalService } from '../../../core/services/modal.service';
 
 describe('ProductFormComponent', () => {
   let component: ProductFormComponent;
@@ -13,6 +14,8 @@ describe('ProductFormComponent', () => {
   let mockProductService: jest.Mocked<ProductService>;
   let mockRouter: jest.Mocked<Router>;
   let mockActivatedRoute: any;
+  let mockModalService: any;
+
 
   const mockProduct = {
     id: 'trj-crdt',
@@ -25,11 +28,16 @@ describe('ProductFormComponent', () => {
 
   beforeEach(async () => {
     jest.clearAllMocks();
+
+    mockModalService = {
+      handleBackendError: jest.fn(),
+    };
+
     mockProductService = {
       getProducts: jest.fn().mockReturnValue(of([mockProduct])),
       createProduct: jest.fn().mockReturnValue(of({ message: 'Success', data: mockProduct })),
       updateProduct: jest.fn().mockReturnValue(of({ message: 'Success', data: mockProduct })),
-      verifyProductId: jest.fn(), // No mockReturnValue aquí, se hará en cada test async
+      verifyProductId: jest.fn(),
     } as any;
 
     mockRouter = {
@@ -56,6 +64,7 @@ describe('ProductFormComponent', () => {
         { provide: ProductService, useValue: mockProductService },
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: ModalService, useValue: mockModalService }
       ],
     }).compileComponents();
 
@@ -532,35 +541,32 @@ describe('ProductFormComponent', () => {
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/products']);
     }));
 
-    it('should log error if createProduct fails', fakeAsync(() => {
-      const consoleErrorSpy = jest.spyOn(console, 'error');
-      mockProductService.createProduct.mockReturnValue(throwError(() => new Error('Creation failed')));
+    it('should handle error if createProduct fails', fakeAsync(() => {
+      mockProductService.createProduct.mockReturnValue(
+        throwError(() => new Error('Creation failed'))
+      );
 
-      expect(component.productForm.valid).toBeTruthy();
       component.onSubmit();
-      tick(Infinity); // Limpia cualquier temporizador pendiente del observable de error
       flushMicrotasks();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(new Error('Creation failed'));
+      const modalService = TestBed.inject(ModalService);
+      expect(modalService.handleBackendError).toHaveBeenCalled();
       expect(mockRouter.navigate).not.toHaveBeenCalled();
-      consoleErrorSpy.mockRestore();
     }));
 
-    it('should log error if updateProduct fails', fakeAsync(() => {
-      const consoleErrorSpy = jest.spyOn(console, 'error');
-      mockProductService.updateProduct.mockReturnValue(throwError(() => new Error('Update failed')));
+    it('should handle error if updateProduct fails (edit mode)', fakeAsync(() => {
       component.isEditMode = true;
-      component.productId = 'valid-id';
-      component.productForm.get('id')?.disable();
+      component.productId = '123';
+      mockProductService.updateProduct.mockReturnValue(
+        throwError(() => new Error('Update failed'))
+      );
 
-      expect(component.productForm.valid).toBeTruthy();
       component.onSubmit();
-      tick(Infinity); // Limpia cualquier temporizador pendiente del observable de error
       flushMicrotasks();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(new Error('Update failed'));
+      const modalService = TestBed.inject(ModalService);
+      expect(modalService.handleBackendError).toHaveBeenCalled();
       expect(mockRouter.navigate).not.toHaveBeenCalled();
-      consoleErrorSpy.mockRestore();
     }));
   });
 

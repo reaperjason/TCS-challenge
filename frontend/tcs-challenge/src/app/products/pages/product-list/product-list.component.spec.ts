@@ -68,6 +68,8 @@ describe('ProductListComponent', () => {
     };
     modalService = {
       open: jest.fn(),
+      handleBackendError: jest.fn(),
+      openConfirmationModal: jest.fn()
     };
 
     await TestBed.configureTestingModule({
@@ -108,10 +110,9 @@ describe('ProductListComponent', () => {
   it('should handle error when fetching products', fakeAsync(() => {
     const errorResponse = 'Failed to fetch products';
     (productService.getProducts as jest.Mock).mockReturnValue(throwError(() => new Error(errorResponse)));
-    const consoleErrorSpy = jest.spyOn(console, 'error');
     component.ngOnInit();
     tick();
-    expect(consoleErrorSpy).toHaveBeenCalled();
+    expect(modalService.handleBackendError).toHaveBeenCalled();
     expect(component.isLoading).toBeFalsy();
   }));
 
@@ -153,7 +154,7 @@ describe('ProductListComponent', () => {
   it('should open the delete modal when "delete" option is selected', () => {
     const productToDelete = mockProducts[0];
     component.onOptionSelected('delete', productToDelete);
-    expect(modalService.open).toHaveBeenCalledWith({ name: productToDelete.name, id: productToDelete.id });
+    expect(modalService.openConfirmationModal).toHaveBeenCalledWith({ name: productToDelete.name, id: productToDelete.id });
   });
 
   it('should delete a product and reload the list', fakeAsync(() => {

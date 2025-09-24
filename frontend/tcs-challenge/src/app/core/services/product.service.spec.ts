@@ -4,6 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ProductsApiResponse, ProductService } from './product.service';
 import { firstValueFrom } from 'rxjs';
 import { Product } from '../../products/models/product.model';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 describe('ProductService', () => {
   let service: ProductService;
@@ -13,6 +14,7 @@ describe('ProductService', () => {
     TestBed.configureTestingModule({
       providers: [
         ProductService,
+        provideHttpClient(withFetch()),
         provideHttpClientTesting()
       ]
     });
@@ -40,7 +42,7 @@ describe('ProductService', () => {
 
     const req = httpMock.expectOne('http://localhost:3002/bp/products');
     expect(req.request.method).toBe('GET');
-    request.flush(dummyApiData, { status: 200, statusText: 'OK' });
+    req.flush(dummyApiData, { status: 200, statusText: 'OK' });
   });
 
   it('should delete a product and return a success message', () => {
