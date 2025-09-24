@@ -1,70 +1,65 @@
-<div class="product-list-container">
-  <!-- Barra de búsqueda y acción -->
-  <div class="search-and-add">
+<div class="product-list">
+  <div class="product-list__toolbar">
     <input class="search-input" type="text" placeholder="Buscar..." [(ngModel)]="searchTerm"
       (ngModelChange)="applyFilterAndPagination()">
-    <button class="add-button btn btn-confirm" (click)="goToNewProduct()">Agregar</button>
+    <button class="button button--primary button--auto-width" (click)="goToNewProduct()">Agregar</button>
   </div>
-  <!-- Tabla de productos -->
+
   <div *ngIf="!isLoading; else loadingSkeleton">
-    <table class="product-table">
+    <table class="data-table">
       <thead>
         <tr>
-          <th class="product-table__column--logo">Logo</th>
-          <th>Nombre del producto</th>
-          <th>Descripción</th>
-          <th>Fecha de liberación</th>
-          <th>Fecha de reestructuración</th>
-          <th></th>
+          <th class="data-table__header data-table__header--logo">Logo</th>
+          <th class="data-table__header">Nombre del producto</th>
+          <th class="data-table__header">Descripción</th>
+          <th class="data-table__header">Fecha de liberación</th>
+          <th class="data-table__header">Fecha de reestructuración</th>
+          <th class="data-table__header"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let product of displayedProducts">
-          <td class="product-table__column--logo"><img [src]="product.logo" alt="Logo" class="product-logo"></td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.description }}</td>
-          <td>{{ product.date_release | date:'shortDate' }}</td>
-          <td>{{ product.date_revision | date:'shortDate' }}</td>
-          <td>
+          <td class="data-table__cell data-table__cell--logo"><img [src]="product.logo" alt="Logo" class="product__logo"></td>
+          <td class="data-table__cell">{{ product.name }}</td>
+          <td class="data-table__cell">{{ product.description }}</td>
+          <td class="data-table__cell">{{ product.date_release | date:'shortDate' }}</td>
+          <td class="data-table__cell">{{ product.date_revision | date:'shortDate' }}</td>
+          <td class="data-table__cell">
             <app-options-menu [options]="options" (optionSelected)="onOptionSelected($event, product)">
             </app-options-menu>
           </td>
         </tr>
-
         <tr *ngIf="displayedProducts.length === 0">
-          <td colspan="7">No se encontraron productos.</td>
+          <td colspan="7" class="data-table__cell data-table__cell--empty">No se encontraron productos.</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <!-- skeleton -->
+
   <ng-template #loadingSkeleton>
-    <div class="skeleton-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Logo</th>
-            <th>Nombre del producto</th>
-            <th>Descripción</th>
-            <th>Fecha de liberación</th>
-            <th>Fecha de reestructuración</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let i of [1, 2, 3, 4, 5]">
-            <td *ngFor="let j of [1, 2, 3, 4, 5, 6]">
-              <div class="skeleton-placeholder"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="skeleton">
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th></th><th></th><th></th><th></th><th></th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of [1, 2, 3, 4, 5]">
+              <td *ngFor="let j of [1, 2, 3, 4, 5, 6]">
+                <div class="skeleton-placeholder"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </ng-template>
 
-  <div class="footer">
+  <div class="product-list__footer">
     <p><b>{{ filteredProducts.length }} Resultados</b></p>
-    <select id="pageSize" class="select" [(ngModel)]="pageSize" (ngModelChange)="applyFilterAndPagination()">
+    <select class="select" [(ngModel)]="pageSize" (ngModelChange)="applyFilterAndPagination()">
       <option value="5">5</option>
       <option value="10">10</option>
       <option value="20">20</option>

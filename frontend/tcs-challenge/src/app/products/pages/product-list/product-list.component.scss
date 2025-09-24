@@ -1,79 +1,77 @@
-.product-list-container {
+/* ------------------------------------------------------------- */
+/* PRODUCT LIST BLOCK */
+/* ------------------------------------------------------------- */
+
+.product-list {
   width: 90%;
   margin: 20px auto;
-  font-family: sans-serif;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.add-button {
-  width: auto;
-}
-
-.search-and-add {
+.product-list__toolbar {
   display: flex;
   gap: 10px;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.product-table {
-  width: 100%;
-  border-collapse: collapse;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  th,
-  td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-  }
-  th {
-    background-color: #f2f2f2;
-  }
-
-  td {
-    padding: 8px 12px;
-    vertical-align: middle;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-  }
-
-  /* Ajuste para el logo */
-  .product-logo {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    border-radius: 4px;
-    display: block;
-    margin: auto;
-  }
-  .product-table__column--logo {
-    text-align: center;
-  }
-}
-
-.footer {
+.product-list__footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
 }
 
-.footer p {
-  font-size: 0.9rem;
-  color: #555;
-  font-weight: 500;
+/* ------------------------------------------------------------- */
+/* DATA TABLE COMPONENT (REUSABLE) */
+/* ------------------------------------------------------------- */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.footer select {
+.data-table__header {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.data-table__cell {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.data-table__header--logo,
+.data-table__cell--logo {
+  text-align: center;
+}
+
+.data-table__cell--empty {
+  text-align: center;
+}
+
+/* ------------------------------------------------------------- */
+/* PRODUCT ELEMENT (SPECIFIC STYLES) */
+/* ------------------------------------------------------------- */
+
+.product__logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 4px;
+  display: block;
+  margin: auto;
+}
+
+/* ------------------------------------------------------------- */
+/* SELECT (REUSABLE) */
+/* ------------------------------------------------------------- */
+
+.select {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -85,20 +83,16 @@
   transition: all 0.2s ease-in-out;
 }
 
-.footer select:hover {
+.select:hover {
   border-color: #999;
 }
 
-//Skeleton styles
-.skeleton-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
+/* ------------------------------------------------------------- */
+/* SKELETON */
+/* ------------------------------------------------------------- */
 
-.skeleton-table td {
-  height: 50px;
-  border-bottom: 1px solid #ddd;
-  padding: 8px 12px;
+.skeleton {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .skeleton-placeholder {
@@ -110,14 +104,6 @@
   border-radius: 4px;
 }
 
-.skeleton-table tr:nth-child(2) .skeleton-placeholder {
-  width: 70%;
-}
-
-.skeleton-table tr:nth-child(3) .skeleton-placeholder {
-  width: 90%;
-}
-
 @keyframes loading {
   0% {
     background-position: 100% 0;
@@ -125,4 +111,15 @@
   100% {
     background-position: -100% 0;
   }
+}
+
+.skeleton table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.skeleton td {
+  height: 50px;
+  border-bottom: 1px solid #ddd;
+  padding: 8px 12px;
 }
